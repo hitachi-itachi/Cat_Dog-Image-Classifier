@@ -2,6 +2,19 @@ import cv2
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import os
+import numpy as np
+
+from pandas import read_csv
+from matplotlib import pyplot
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 
 
 DATADIR = "C:\Python project\Dog_and_Catclassifierproject\\train"
@@ -20,7 +33,7 @@ print(img_array.shape) #we have to make everything the same shape
 
 #sizing of the image
 #some of the focus on the image might be smaller so we have to becareful on how we set the image size
-IMG_SIZE = 50
+IMG_SIZE = 50 #shaping image to the same size.
 new_array = cv2.resize(img_array, (IMG_SIZE,IMG_SIZE))
 plt.imshow(new_array,cmap='gray')
 plt.show()
@@ -44,3 +57,33 @@ create_training_data()
 
 #its very important that we wanna have a 50/50 spilt between data 50% cat and 50% dog
 print(len(training_data))
+
+import random
+random.shuffle(training_data)
+
+#Loop thru for 10 elements of training_data, take second element of the list. If cat = 0 if dog = 1
+for sample in training_data[:10]:
+    print(sample[1])
+
+x = []
+y = []
+
+for features, label in training_data:
+    x.append(features)
+    y.append(label)
+
+x = np.array(x).reshape(-1, IMG_SIZE,IMG_SIZE, 1)  #the last 1 is cuz its a grayscale
+
+import pickle
+pickle_out = open("x.pickle","wb")
+pickle.dump(x,pickle_out)
+pickle_out.close()
+
+pickle_out = open("x.pickle","wb")
+pickle.dump(y,pickle_out)
+pickle_out.close()
+
+pickle_in = open("X.pickle", "rb")
+x = pickle.load(pickle_in)
+
+print(x[1])

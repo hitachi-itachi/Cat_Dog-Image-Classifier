@@ -18,7 +18,7 @@ from sklearn.svm import SVC
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
 
 DATADIR = "C:\Python project\Dog_and_Catclassifierproject\\train"
 CATEGORIES  = ['CAT','DOG'] #we can use categories to map out which one is the cat and which one is the dog using array position.

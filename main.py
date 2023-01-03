@@ -25,7 +25,7 @@ CATEGORIES  = ['CAT','DOG'] #we can use categories to map out which one is the c
 for category in CATEGORIES:
     path = os.path.join(DATADIR, category) #path to cats or dogs dir
     for img in os.listdir(path):
-        img_array = cv2.imread(os.path.join(path,img), cv2.IMREAD_GRAYSCALE) #rgb is 3 times the size of greyscale
+        img_array = cv2.imread(os.path.join(path,img), cv2.IMREAD_GRAYSCALE) # first argument = read the file in specificed path, second is to read it in grayscale.rgb is 3 times the size of greyscale
         plt.imshow(img_array, cmap = "gray")
         plt.show()
         break
@@ -41,19 +41,23 @@ plt.imshow(new_array,cmap='gray')
 plt.show()
 
 training_data = []
+name_data = []
 
 #we need to map things to a numerical value
 def create_training_data():
     for category in CATEGORIES:
         path = os.path.join(DATADIR, category)  # path to cats or dogs dir
-        class_num = CATEGORIES.index(category)
-        for img in os.listdir(path):
+        class_num = CATEGORIES.index(category) #making it 0 = cat, 1 = dog
+        for img in os.listdir(path): #label about each file name that is inside the subfolder :0
             try:
                 img_array = cv2.imread(os.path.join(path, img),cv2.IMREAD_GRAYSCALE)  # rgb is 3 times the size of greyscale
                 new_array = cv2.resize(img_array,(IMG_SIZE,IMG_SIZE))
                 training_data.append([new_array, class_num])
+                name_data.append(img)
             except Exception as e:
                 pass
+
+
 
 create_training_data()
 
@@ -64,22 +68,16 @@ import random
 random.shuffle(training_data)
 
 #Loop thru for 10 elements of training_data, take second element of the list. If cat = 0 if dog = 1
-for sample in training_data[:10]:
-    print(sample[1])
+#for sample in training_data[:10]:
+    #print(sample[0]) #basically printing the second argument of the training data since it has two argument
 
 x = training_data
-y = ['CAT','DOG']
-
-
-models = []
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
-models.append(('LDA', LinearDiscriminantAnalysis()))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier()))
-models.append(('NB', GaussianNB()))
-models.append(('SVM', SVC(gamma='auto')))
+y = name_data
+#y = os.listdir(img)
 
 X_train, X_validation, Y_train, Y_validation = train_test_split(x, y, test_size=0.20, random_state=1)
+
+
 
 
 

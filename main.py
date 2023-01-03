@@ -18,6 +18,7 @@ from sklearn.svm import SVC
 from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot
+from sklearn.metrics import confusion_matrix
 
 DATADIR = "C:\Python project\Dog_and_Catclassifierproject\\train"
 CATEGORIES  = ['CAT','DOG'] #we can use categories to map out which one is the cat and which one is the dog using array position.
@@ -77,7 +78,11 @@ y = name_data
 
 X_train, X_validation, Y_train, Y_validation = train_test_split(x, y, test_size=0.20, random_state=1)
 
+model = SVC(gamma='auto')
+model.fit(X_train, Y_train)
+predictions = model.predict(X_validation)
 
+print(accuracy_score(Y_validation, predictions))
 
 
 

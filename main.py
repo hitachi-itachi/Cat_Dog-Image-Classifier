@@ -15,7 +15,9 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
-
+from pandas import read_csv
+from pandas.plotting import scatter_matrix
+from matplotlib import pyplot
 
 DATADIR = "C:\Python project\Dog_and_Catclassifierproject\\train"
 CATEGORIES  = ['CAT','DOG'] #we can use categories to map out which one is the cat and which one is the dog using array position.
@@ -65,10 +67,24 @@ random.shuffle(training_data)
 for sample in training_data[:10]:
     print(sample[1])
 
-x = []
-y = []
+x = training_data
+y = ['CAT','DOG']
 
-for features, label in training_data:
+
+models = []
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC(gamma='auto')))
+
+X_train, X_validation, Y_train, Y_validation = train_test_split(x, y, test_size=0.20, random_state=1)
+
+
+
+
+""""for features, label in training_data:
     x.append(features)
     y.append(label)
 
@@ -87,3 +103,5 @@ pickle_in = open("X.pickle", "rb")
 x = pickle.load(pickle_in)
 
 print(x[1])
+
+"""

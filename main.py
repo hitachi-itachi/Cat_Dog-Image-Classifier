@@ -22,7 +22,12 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Dropout, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.utils import np_utils
-
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import metrics
+from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
+from PIL import Image
+import theano
 
 DATADIR = "C:\Python project\Dog_and_Catclassifierproject\\train"
 CATEGORIES  = ['CAT','DOG'] #we can use categories to map out which one is the cat and which one is the dog using array position.

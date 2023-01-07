@@ -81,8 +81,14 @@ random.shuffle(training_data)
 #for sample in training_data[:10]:
     #print(sample[0]) #basically printing the second argument of the training data since it has two argument
 
+
+# Normalising X and converting labels to categorical data
 x = training_data
 y = name_data
+X= x.astype('float32')
+x/=255
+Y =  np_utils.to_categorical(y,2)
+print(Y[100])
 #y = os.listdir(img)
 
 X_train, X_validation, Y_train, Y_validation = train_test_split(x, y, test_size=0.20, random_state=1)

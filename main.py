@@ -17,7 +17,10 @@ from pandas import read_csv
 from pandas.plotting import scatter_matrix
 from matplotlib import pyplot
 from sklearn.metrics import confusion_matrix, accuracy_score
-import tensorflow as tf
+
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
 from keras.models import Sequential
 from keras.layers.core import Dense, Activation, Dropout, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
@@ -62,7 +65,7 @@ def create_training_data():
             try:
                 img_array = cv2.imread(os.path.join(path, img),cv2.IMREAD_GRAYSCALE)  # rgb is 3 times the size of greyscale
                 new_array = cv2.resize(img_array,(IMG_SIZE,IMG_SIZE))
-                training_data.append([new_array, class_num])
+                training_data.append([new_array, class_num]) #our training_data has two array which allow for loop to get both featurs and label!
                 name_data.append(img)
             except Exception as e:
                 pass
@@ -79,26 +82,33 @@ random.shuffle(training_data)
 
 #Loop thru for 10 elements of training_data, take second element of the list. If cat = 0 if dog = 1
 #for sample in training_data[:10]:
-    #print(sample[0]) #basically printing the second argument of the training data since it has two argument
+#print(sample[0]) #basically printing the second argument of the training data since it has two argument
 
 
 # Normalising X and converting labels to categorical data
-x = training_data
-y = name_data
-X= x.astype('float32')
-x/=255
-Y =  np_utils.to_categorical(y,2)
-print(Y[100])
-#y = os.listdir(img)
+X = []
+y = []
 
-X_train, X_validation, Y_train, Y_validation = train_test_split(x, y, test_size=0.20, random_state=1)
+for features, label in training_data:
+    X.append(features)
+    y.append(label)
 
-model = SVC(gamma='auto')
-model.fit(X_train, Y_train)
-predictions = model.predict(X_validation)
+X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
-print(accuracy_score(Y_validation, predictions))
+X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
 
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu,
+                           input_shape=(200, 200, 3)),
+    tf.keras.layers.MaxPooling2D((2, 2), strides=2),
+    tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu),
+    tf.keras.layers.MaxPooling2D((2, 2), strides=2),
+    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation=tf.nn.relu),
+    tf.keras.layers.Dense(4,  activation=tf.nn.softmax)
+])
 
 
 

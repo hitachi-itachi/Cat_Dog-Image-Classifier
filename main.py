@@ -48,7 +48,7 @@ print(img_array.shape) #we have to make everything the same shape
 
 #sizing of the image
 #some of the focus on the image might be smaller so we have to becareful on how we set the image size
-IMG_SIZE = 50 #shaping image to the same size.
+IMG_SIZE = 200 #shaping image to the same size.
 new_array = cv2.resize(img_array, (IMG_SIZE,IMG_SIZE))
 plt.imshow(new_array,cmap='gray')
 plt.show()
@@ -95,12 +95,20 @@ for features, label in training_data:
 
 X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.20, random_state=1)
 
+batch_size = 16
+nb_classes =4
+nb_epochs = 5
+img_rows, img_columns = 200, 200
+img_channel = 3
+nb_filters = 32
+nb_pool = 2
+nb_conv = 3
 
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu,
-                           input_shape=(200, 200, 3)),
+                           input_shape=(IMG_SIZE, IMG_SIZE, 1)),
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu),
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
@@ -109,8 +117,12 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(128, activation=tf.nn.relu),
     tf.keras.layers.Dense(4,  activation=tf.nn.softmax)
 ])
+model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+model.fit(X_train, Y_train, batch_size = batch_size, epochs = nb_epochs, verbose = 1, validation_data = (X_test, Y_test))
 
-
+score = model.evaluate(X_test, Y_test, verbose = 0 )
+print("Test Score: ", score[0])
+print("Test accuracy: ", score[1])
 
 """"for features, label in training_data:
     x.append(features)

@@ -99,16 +99,16 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.20, random
 
 batch_size = 16
 nb_classes =4
-nb_epochs = 5
-img_rows, img_columns = 200, 200
-img_channel = 3
+nb_epochs = 6 # previous epoch was 5 increase to 6 to see if it has higher accuracy
+img_rows, img_columns = IMG_SIZE, IMG_SIZE # Was 200,200 I changed to 50
+img_channel = 1 #was three I changed to 1
 nb_filters = 32
 nb_pool = 2
 nb_conv = 3
 
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu,
-                           input_shape=(IMG_SIZE, IMG_SIZE, 1)),
+                           input_shape=(IMG_SIZE, IMG_SIZE, 1)), #was 3 I changed to 1 and 200 then changed to 50 as well
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu),
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),

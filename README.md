@@ -13,7 +13,7 @@ Scikit-learn for trainining and testing <br />
 ### Library used:
 Numpy <br />
 Opencv <br />
-os <br />
+OS <br />
 
 ### External link:
 Cat & Dog Data set: 
@@ -69,7 +69,7 @@ Fully connected: Where layers start to complete and prediction starts to take pl
 
 ## Model Accuracy
 
-###First glance at model accuracy:
+### First glance at model accuracy:
 
 ![bandicam 2023-01-08 23-40-11-194](https://user-images.githubusercontent.com/64311133/212346088-66a4e964-8e98-4f01-af09-1e9b28e838a2.jpg)
 

@@ -48,7 +48,7 @@ The training data has to be randomize because if not it would be the first half 
 
 After that I print out a sample of the output to make sure that the cat and dog data is well mixed. 0 = cat and 1 = dog
 
-###Sample output: </br>
+### Sample output: </br>
 ![bandicam 2023-01-13 22-08-14-312](https://user-images.githubusercontent.com/64311133/212340666-8b06c3b6-4e0f-49a6-88c2-4d1127e1cedd.jpg)
 
 ## Curated the CNN Model and send the data for prediction

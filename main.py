@@ -99,7 +99,7 @@ X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.20, random_state=1)
 
-batch_size = 16
+batch_size = 10
 nb_classes = 2
 nb_epochs = 5 # previous epoch was 5 increase to 6 to see if it has higher accuracy
 img_rows, img_columns = IMG_SIZE, IMG_SIZE # Was 200,200 I changed to 50

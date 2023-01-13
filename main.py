@@ -85,7 +85,7 @@ random.shuffle(training_data)
 #print(sample[0]) #basically printing the second argument of the training data since it has two argument
 
 
-# Normalising X and converting labels to categorical data
+# Normalising X and converting labels to categorical datas
 X = []
 y = []
 

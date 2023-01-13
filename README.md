@@ -54,17 +54,51 @@ After that I print out a sample of the output to make sure that the cat and dog 
 ## Curated the CNN Model and send the data for prediction
 ![bandicam 2023-01-13 22-17-30-591](https://user-images.githubusercontent.com/64311133/212342935-a3c7d09a-93f7-4415-a355-8326f81144ad.jpg)
 
-###What we are using is LeNet-5 CNN architcture:
+### What we are using is LeNet-5 CNN architcture:
 
 CNN basically aims to reduce the amount of features present in a data set. 
 Three 3 main layers convolution layer, pooling layer, fully connected layer.
 
 Convolution layer: Extract varioues feature from image and form feature map
 Pooling layer: Extract the biggest element from the feature map
-Fully connected: Where layers start to complete and prediction starts to take place </br>
+Fully connected: Where layers start to complete and prediction starts to take place 
 
 ### An image of LeNet-5 Architecture
 
 ![1lvvWF48t7cyRWqct13eU0w](https://user-images.githubusercontent.com/64311133/212344983-c2a314bf-c612-42f8-b1aa-bee32a1a608e.jpeg)
+
+## Model Accuracy
+
+###First glance at model accuracy:
+
+![bandicam 2023-01-08 23-40-11-194](https://user-images.githubusercontent.com/64311133/212346088-66a4e964-8e98-4f01-af09-1e9b28e838a2.jpg)
+
+Accuracy is quite bad at 54%
+
+It took 4 hours to finish processing the entire data which took too long so I decided to scale down the sample size to 10,000 
+
+I tweak the batch_size from 16 to 20 to see if it makes any difference to the data accuracy.
+
+Frankly it did.
+
+### CNN Properties(tweak)
+![bandicam 2023-01-13 22-41-25-444](https://user-images.githubusercontent.com/64311133/212347202-86bfc748-dbc6-469f-bce2-1bce87185710.jpg)
+
+### New output:
+![bandicam 2023-01-13 00-18-15-107](https://user-images.githubusercontent.com/64311133/212346909-dfdcd249-456c-46be-a752-36322423b431.jpg)
+
+I further tweak the batch_size to 25 and it gives me a better accuracy.
+
+Update accuracy:
+![bandicam 2023-01-13 16-02-29-880](https://user-images.githubusercontent.com/64311133/212350844-bc3c2884-db78-4096-9ca2-07d03add97a3.jpg)
+
+
+## Closing thoughts
+There are a couple of tweaks that I have yet to try due to time constraint which may improve the accuracy:
+1. Adding a new layer
+2. Changing the maxpool poolsize
+3. Increasing the number of epoch
+
+
 
 

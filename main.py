@@ -93,13 +93,15 @@ for features, label in training_data[:1000]:
     X.append(features)
     y.append(label)
 
+for sample in training_data[:10]:
+    print(sample[1])
 X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.20, random_state=1)
 
 batch_size = 16
-nb_classes = 4
-nb_epochs = 6 # previous epoch was 5 increase to 6 to see if it has higher accuracy
+nb_classes = 2
+nb_epochs = 5 # previous epoch was 5 increase to 6 to see if it has higher accuracy
 img_rows, img_columns = IMG_SIZE, IMG_SIZE # Was 200,200 I changed to 50
 img_channel = 1 #was three I changed to 1
 nb_filters = 32
@@ -112,7 +114,7 @@ model = tf.keras.Sequential([
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu),
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
-    tf.keras.layers.Dropout(0.5),
+    tf.keras.layers.Dropout(0.4),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(128, activation=tf.nn.relu),
     tf.keras.layers.Dense(4,  activation=tf.nn.softmax)

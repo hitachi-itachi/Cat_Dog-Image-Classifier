@@ -89,7 +89,7 @@ random.shuffle(training_data)
 X = []
 y = []
 
-for features, label in training_data[:1000]:
+for features, label in training_data[:10000]:
     X.append(features)
     y.append(label)
 
@@ -99,7 +99,7 @@ X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.20, random_state=1)
 
-batch_size = 10
+batch_size = 25
 nb_classes = 2
 nb_epochs = 5 # previous epoch was 5 increase to 6 to see if it has higher accuracy
 img_rows, img_columns = IMG_SIZE, IMG_SIZE # Was 200,200 I changed to 50
@@ -108,13 +108,14 @@ nb_filters = 32
 nb_pool = 2
 nb_conv = 3
 
+ #leNet-5 CNN Architecture
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu,
                            input_shape=(IMG_SIZE, IMG_SIZE, 1)), #was 3 I changed to 1 and 200 then changed to 50 as well
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
     tf.keras.layers.Conv2D(32, (3,3), padding='same', activation=tf.nn.relu),
     tf.keras.layers.MaxPooling2D((2, 2), strides=2),
-    tf.keras.layers.Dropout(0.4),
+    tf.keras.layers.Dropout(0.3),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(128, activation=tf.nn.relu),
     tf.keras.layers.Dense(4,  activation=tf.nn.softmax)
@@ -125,25 +126,3 @@ model.fit(X_train, Y_train, batch_size = batch_size, epochs = nb_epochs, verbose
 score = model.evaluate(X_test, Y_test, verbose = 0 )
 print("Test Score: ", score[0])
 print("Test accuracy: ", score[1])
-
-""""for features, label in training_data:
-    x.append(features)
-    y.append(label)
-
-x = np.array(x).reshape(-1, IMG_SIZE,IMG_SIZE, 1)  #the last 1 is cuz its a grayscale
-
-import pickle
-pickle_out = open("x.pickle","wb")
-pickle.dump(x,pickle_out)
-pickle_out.close()
-
-pickle_out = open("x.pickle","wb")
-pickle.dump(y,pickle_out)
-pickle_out.close()
-
-pickle_in = open("X.pickle", "rb")
-x = pickle.load(pickle_in)
-
-print(x[1])
-
-"""

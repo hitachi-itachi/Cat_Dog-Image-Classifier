@@ -16,7 +16,7 @@ Opencv <br />
 OS <br />
 
 ### External link:
-Cat & Dog Data set: 
+Cat & Dog Data set: https://www.kaggle.com/competitions/dogs-vs-cats
 
 ## Data Preprocessing
 

@@ -3,7 +3,7 @@
 
 
 ## What is this project about?
-This project evaluates the ability of CNN(Convulutional neural network) to make accurate prediction on a cats and dogs dataset. I 
+This project evaluates the ability of CNN(Convulutional neural network) to make accurate prediction on a cats and dogs dataset. 
 
 ## Application Code
 ### Main Framework used(for deeplearning):
@@ -29,7 +29,7 @@ Basically this code converts my image to greyscale.So it would be less computati
 
 
 ![bandicam 2023-01-13 21-17-02-480](https://user-images.githubusercontent.com/64311133/212332937-5a65fc06-0559-452a-bc1a-be2215a53e49.jpg)
-All Image are of different sizes we have to make sure that all image are of equal sizes to eliminate any abnormalites that may show up during the training/testing phase.
+All Images are of different sizes we have to make sure that all image are of equal sizes to eliminate any abnormalites that may show up during the training/testing phase.
 
 ### Original Image:
 
